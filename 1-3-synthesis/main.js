@@ -1,6 +1,7 @@
 import "./style.css";
 
 let audioButton = document.querySelector("#audioButton");
+let noteButton = document.querySelector("#noteButton");
 
 let audioCtx = new AudioContext();
 let firstStart = true;
@@ -27,6 +28,36 @@ async function startLoop() {
   bufferSrcNode.start();
 }
 
+function playNote(
+  duration = 0.2,
+  attack = 0.01,
+  decay = 0.1,
+  sustain = 0.5,
+  release = 1.0
+) {
+  let now = audioCtx.currentTime;
+
+  // Create
+  let osc = audioCtx.createOscillator();
+  let gain = audioCtx.createGain();
+
+  // Configure
+  osc.frequency.value = 261.63;
+  gain.gain.setValueAtTime(0, now);
+  gain.gain.linearRampToValueAtTime(0.3, now + attack);
+  gain.gain.linearRampToValueAtTime(0.3 * sustain, now + attack + decay);
+  gain.gain.setValueAtTime(0.3 * sustain, now + duration);
+  gain.gain.setTargetAtTime(0, now + duration, release * 0.2);
+
+  // Connect
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+
+  // Start
+  osc.start();
+  osc.stop(audioCtx.currentTime + duration + release);
+}
+
 async function startEverything() {
   await startLoop();
   await audioCtx.resume();
@@ -44,3 +75,4 @@ async function toggleAudio() {
 }
 
 audioButton.addEventListener("click", toggleAudio);
+noteButton.addEventListener("click", () => playNote());

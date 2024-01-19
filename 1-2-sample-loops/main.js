@@ -15,7 +15,7 @@ async function startLoop() {
   let bufferSrcNode = audioCtx.createBufferSource();
 
   // Configure
-  let buffer = await loadBuffer("/loops/aat_texture_loop_scape_128.mp4");
+  let buffer = await loadBuffer("/loops/ai1_atmosphere_loop_factotum_60_C.mp4");
   bufferSrcNode.buffer = buffer;
 
   // Connect
