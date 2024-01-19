@@ -1,5 +1,5 @@
 {
-  "name": "genmusic-workshop-1-1-intro",
+  "name": "genmusic-workshop-1-2-sample-loops",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -12,6 +12,7 @@
     "vite": "^5.0.8"
   },
   "dependencies": {
-    "waaclock": "^0.5.4"
+    "waaclock": "^0.5.4",
+    "worker-timers": "^7.1.1"
   }
 }
