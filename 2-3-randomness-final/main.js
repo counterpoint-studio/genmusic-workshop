@@ -124,18 +124,27 @@ function randRange(min = 0, max = 1) {
   return min + Math.random() * (max - min);
 }
 
-function startMelody(destination) {
-  let chordNoteIndexes = [0, 1, 2, 3, 4, 5];
+function startMelody(length, octaveShift, destination) {
+  let chordNoteIndexes = [0, 2, 4, 6];
   let noteIndex = 0;
+  let sequence = [];
+  for (let i = 0; i < length; i += 1) {
+    if (Math.random() < 0.2) {
+      sequence.push(-1);
+    } else {
+      if (noteIndex === 0) noteIndex += 1;
+      else if (noteIndex === chordNoteIndexes.length - 1) noteIndex -= 1;
+      else noteIndex += Math.random() < 0.5 ? -1 : 1;
+      let note = SCALE[chordNoteIndexes[noteIndex]] + 12 * octaveShift;
+      sequence.push(note);
+    }
+  }
+
+  let seqIndex = 0;
   clock
     .callbackAtTime((event) => {
-      if (Math.random() < 0.2) return;
-      if (noteIndex === 0) noteIndex += 1;
-      else if (noteIndex === chordNoteIndexes.length * 2 - 1) noteIndex -= 1;
-      else noteIndex += Math.random() < 0.5 ? -1 : 1;
-      let wrappedNoteIndex = noteIndex % chordNoteIndexes.length;
-      let noteOctave = Math.floor(noteIndex / chordNoteIndexes.length);
-      let note = SCALE[chordNoteIndexes[wrappedNoteIndex]] + 12 * noteOctave;
+      let note = sequence[seqIndex++ % sequence.length];
+      if (note === -1) return;
       let timingHumanisation = randRange(0.0, 0.02);
       playNote(
         {
@@ -183,7 +192,8 @@ async function startEverything() {
   let saturator = new AudioWorkletNode(audioCtx, "saturator");
   saturator.connect(audioCtx.destination);
   clock.start();
-  startMelody(saturator);
+  startMelody(45, 0, saturator);
+  startMelody(47, 1, saturator);
   startNoteLoop(SCALE[0] + 12, 6.2, 17.4);
   startNoteLoop(SCALE[2] + 12, 3.8, 17.0);
   startNoteLoop(SCALE[4], 8.4, 18.2);

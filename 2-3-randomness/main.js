@@ -121,7 +121,7 @@ function playOneShotBuffer({ time, buffer, gain = 0.5, rate = 1.0 }) {
 }
 
 function startMelody(destination) {
-  let chordNoteIndexes = [0, 1, 2, 3, 4, 5];
+  let chordNoteIndexes = [0, 2, 4, 6];
   let noteIndex = 0;
   clock
     .callbackAtTime((event) => {

@@ -2,10 +2,11 @@ If you have cloned this repository locally, you can start it by running `npm run
 
 ## Exercises
 
-1. Make the random melody sequencer span two octaves rather than just one.
-2. Change the sequencer so that instead of always playing a note, it randomly sometimes skips playing a note.
-3. Randomise the velocity and ADSR envelope of each note a little so that the notes sound different from each other.
-4. Introduce “timing humanisation”, by adding small random numbers to the timing of the notes. Try different numbers. When does it sound good? When does it sound too random / unmusical?
+1. Change the sequencer so that instead of always playing a note, it randomly sometimes skips playing a note.
+2. Make it so that there's a repeating pattern of random notes.
+3. Add a second repeating random pattern, with a different length, one octave above the original one.
+4. Randomise the velocity and ADSR envelope of each note a little so that the notes sound different from each other.
+5. Introduce “timing humanisation”, by adding small random numbers to the timing of the notes. Try different numbers. When does it sound good? When does it sound too random / unmusical?
 
 ## Relevant Resources
 
