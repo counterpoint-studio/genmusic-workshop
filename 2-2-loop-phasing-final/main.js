@@ -43,17 +43,20 @@ async function startLoop() {
 }
 
 function playNote(
-  time,
-  note,
-  duration = 1.15,
-  attack = 0.02,
-  decay = 0.1,
-  sustain = 0.5,
-  release = 5.0,
-  filterAttack = 0.01,
-  filterDecay = 0.0,
-  filterSustain = 1.0,
-  filterRelease = 0.1
+  {
+    time,
+    note,
+    duration = 1.15,
+    attack = 0.02,
+    decay = 0.1,
+    sustain = 0.5,
+    release = 5.0,
+    filterAttack = 0.01,
+    filterDecay = 0.0,
+    filterSustain = 1.0,
+    filterRelease = 0.1,
+  } = {},
+  destination = audioCtx.destination
 ) {
   // Create
   let osc = audioCtx.createOscillator();
@@ -61,7 +64,6 @@ function playNote(
   let noiseGain = audioCtx.createGain();
   let gain = audioCtx.createGain();
   let filter = audioCtx.createBiquadFilter();
-  let saturator = new AudioWorkletNode(audioCtx, "saturator");
 
   // Configure
   osc.type = "triangle";
@@ -89,8 +91,7 @@ function playNote(
   noiseOsc.connect(noiseGain);
   noiseGain.connect(gain);
   gain.connect(filter);
-  filter.connect(saturator);
-  saturator.connect(audioCtx.destination);
+  filter.connect(destination);
 
   // Start
   osc.start(time);
@@ -99,7 +100,7 @@ function playNote(
   noiseOsc.stop(time + duration + release);
 }
 
-function playOneShotBuffer(time, buffer, gain = 0.5, rate = 1.0) {
+function playOneShotBuffer({ time, buffer, gain = 0.5, rate = 1.0 }) {
   // Create
   let bufferSrcNode = audioCtx.createBufferSource();
   let gainNode = audioCtx.createGain();
@@ -117,7 +118,7 @@ function playOneShotBuffer(time, buffer, gain = 0.5, rate = 1.0) {
   bufferSrcNode.start(time);
 }
 
-function startMelody() {
+function startMelody(destination) {
   let noteNumber = 0;
   clock
     .callbackAtTime((event) => {
@@ -125,7 +126,7 @@ function startMelody() {
       let chordNoteIndexes = chord === 0 ? [0, 2, 4] : [1, 4, 6];
       let noteIndex = chordNoteIndexes[noteNumber % chordNoteIndexes.length];
       let note = SCALE[noteIndex];
-      playNote(event.deadline, note);
+      playNote({ time: event.deadline, note }, destination);
       noteNumber++;
     }, audioCtx.currentTime)
     .repeat(5);
@@ -134,7 +135,7 @@ function startMelody() {
 function startNoteLoop(note, initialDelay, interval) {
   clock
     .callbackAtTime(
-      (event) => playNote(event.deadline, note),
+      (event) => playNote({ time: event.deadline, note }),
       audioCtx.currentTime + initialDelay
     )
     .repeat(interval);
@@ -144,7 +145,8 @@ async function startBufferLoop(url, gain, rate, initialDelay, interval) {
   let buffer = await loadBuffer(url);
   clock
     .callbackAtTime(
-      (event) => playOneShotBuffer(event.deadline, buffer, gain, rate),
+      (event) =>
+        playOneShotBuffer({ time: event.deadline, buffer, gain, rate }),
       audioCtx.currentTime + initialDelay
     )
     .repeat(interval);
@@ -156,24 +158,26 @@ async function startEverything() {
   await startLoop();
   await audioCtx.resume();
   clock.start();
-  // startMelody();
-  startNoteLoop(SCALE[0] + 12, 3.1, 8.7);
-  startNoteLoop(SCALE[2] + 12, 1.9, 8.5);
-  startNoteLoop(SCALE[4], 4.2, 9.1);
-  startNoteLoop(SCALE[5], 6.3, 9.3);
+  let saturator = new AudioWorkletNode(audioCtx, "saturator");
+  saturator.connect(audioCtx.destination);
+  // startMelody(saturator);
+  startNoteLoop(SCALE[0] + 12, 6.2, 17.4);
+  startNoteLoop(SCALE[2] + 12, 3.8, 17.0);
+  startNoteLoop(SCALE[4], 8.4, 18.2);
+  startNoteLoop(SCALE[5], 12.6, 18.6);
   startBufferLoop(
     "/oneshots/MNT_LR_modular_one_shot_bell_E.mp4",
     0.2,
     0.5,
-    5.1,
-    11.4
+    10.2,
+    22.8
   );
   startBufferLoop(
     "/oneshots/MNT_LR_modular_one_shot_pluck_hi_C.mp4",
     0.2,
     0.5,
-    9.1,
-    23.5
+    18.2,
+    47
   );
 }
 

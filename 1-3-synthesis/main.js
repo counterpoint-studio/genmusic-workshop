@@ -28,13 +28,13 @@ async function startLoop() {
   bufferSrcNode.start();
 }
 
-function playNote(
+function playNote({
   duration = 0.2,
   attack = 0.01,
   decay = 0.1,
   sustain = 0.5,
-  release = 1.0
-) {
+  release = 1.0,
+} = {}) {
   let now = audioCtx.currentTime;
 
   // Create
@@ -61,6 +61,7 @@ function playNote(
 async function startEverything() {
   await startLoop();
   await audioCtx.resume();
+  noteButton.addEventListener("click", () => playNote());
 }
 
 async function toggleAudio() {
@@ -75,4 +76,3 @@ async function toggleAudio() {
 }
 
 audioButton.addEventListener("click", toggleAudio);
-noteButton.addEventListener("click", () => playNote());

@@ -30,7 +30,7 @@ async function startLoop() {
   bufferSrcNode.start();
 }
 
-function playNote(
+function playNote({
   duration = 0.15,
   attack = 0.01,
   decay = 0.1,
@@ -39,8 +39,8 @@ function playNote(
   filterAttack = 0.01,
   filterDecay = 0.0,
   filterSustain = 1.0,
-  filterRelease = 0.1
-) {
+  filterRelease = 0.1,
+} = {}) {
   let now = audioCtx.currentTime;
 
   // Create
@@ -88,6 +88,7 @@ async function startEverything() {
   await audioCtx.audioWorklet.addModule(noiseOscProcessorUrl);
   await startLoop();
   await audioCtx.resume();
+  noteButton.addEventListener("click", () => playNote());
 }
 
 async function toggleAudio() {
@@ -102,4 +103,3 @@ async function toggleAudio() {
 }
 
 audioButton.addEventListener("click", toggleAudio);
-noteButton.addEventListener("click", () => playNote());

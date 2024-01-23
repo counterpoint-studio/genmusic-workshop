@@ -40,17 +40,20 @@ async function startLoop() {
 }
 
 function playNote(
-  time,
-  note,
-  duration = 1.15,
-  attack = 0.21,
-  decay = 0.1,
-  sustain = 0.5,
-  release = 5.0,
-  filterAttack = 0.01,
-  filterDecay = 0.0,
-  filterSustain = 1.0,
-  filterRelease = 0.1
+  {
+    time,
+    note,
+    duration = 1.15,
+    attack = 0.21,
+    decay = 0.1,
+    sustain = 0.5,
+    release = 5.0,
+    filterAttack = 0.01,
+    filterDecay = 0.0,
+    filterSustain = 1.0,
+    filterRelease = 0.1,
+  } = {},
+  destination = audioCtx.destination
 ) {
   // Create
   let osc = audioCtx.createOscillator();
@@ -58,7 +61,6 @@ function playNote(
   let noiseGain = audioCtx.createGain();
   let gain = audioCtx.createGain();
   let filter = audioCtx.createBiquadFilter();
-  let saturator = new AudioWorkletNode(audioCtx, "saturator");
 
   // Configure
   osc.type = "triangle";
@@ -86,8 +88,7 @@ function playNote(
   noiseOsc.connect(noiseGain);
   noiseGain.connect(gain);
   gain.connect(filter);
-  filter.connect(saturator);
-  saturator.connect(audioCtx.destination);
+  filter.connect(destination);
 
   // Start
   osc.start(time);
@@ -96,7 +97,7 @@ function playNote(
   noiseOsc.stop(time + duration + release);
 }
 
-function startMelody() {
+function startMelody(destination) {
   let noteNumber = 0;
   clock
     .callbackAtTime((event) => {
@@ -104,7 +105,7 @@ function startMelody() {
       let chordNoteIndexes = chord === 0 ? [0, 2, 4] : [1, 4, 6];
       let noteIndex = chordNoteIndexes[noteNumber % chordNoteIndexes.length];
       let note = SCALE[noteIndex];
-      playNote(event.deadline, note);
+      playNote({ time: event.deadline, note }, destination);
       noteNumber++;
     }, audioCtx.currentTime)
     .repeat(5);
@@ -115,8 +116,10 @@ async function startEverything() {
   await audioCtx.audioWorklet.addModule(saturatorProcessorUrl);
   await startLoop();
   await audioCtx.resume();
+  let saturator = new AudioWorkletNode(audioCtx, "saturator");
+  saturator.connect(audioCtx.destination);
   clock.start();
-  startMelody();
+  startMelody(saturator);
 }
 
 async function toggleAudio() {

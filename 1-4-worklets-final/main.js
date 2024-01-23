@@ -32,15 +32,18 @@ async function startLoop() {
 }
 
 function playNote(
-  duration = 0.15,
-  attack = 0.01,
-  decay = 0.1,
-  sustain = 0.5,
-  release = 2.0,
-  filterAttack = 0.01,
-  filterDecay = 0.0,
-  filterSustain = 1.0,
-  filterRelease = 0.1
+  {
+    duration = 0.15,
+    attack = 0.01,
+    decay = 0.1,
+    sustain = 0.5,
+    release = 2.0,
+    filterAttack = 0.01,
+    filterDecay = 0.0,
+    filterSustain = 1.0,
+    filterRelease = 0.1,
+  } = {},
+  destination = audioCtx.destination
 ) {
   let now = audioCtx.currentTime;
 
@@ -50,7 +53,6 @@ function playNote(
   let noiseGain = audioCtx.createGain();
   let gain = audioCtx.createGain();
   let filter = audioCtx.createBiquadFilter();
-  let saturator = new AudioWorkletNode(audioCtx, "saturator");
 
   // Configure
   osc.type = "square";
@@ -77,8 +79,7 @@ function playNote(
   noiseOsc.connect(noiseGain);
   noiseGain.connect(gain);
   gain.connect(filter);
-  filter.connect(saturator);
-  saturator.connect(audioCtx.destination);
+  filter.connect(destination);
 
   // Start
   osc.start();
@@ -92,6 +93,9 @@ async function startEverything() {
   await audioCtx.audioWorklet.addModule(saturatorProcessorUrl);
   await startLoop();
   await audioCtx.resume();
+  let saturator = new AudioWorkletNode(audioCtx, "saturator");
+  saturator.connect(audioCtx.destination);
+  noteButton.addEventListener("click", () => playNote({}, saturator));
 }
 
 async function toggleAudio() {
@@ -106,4 +110,3 @@ async function toggleAudio() {
 }
 
 audioButton.addEventListener("click", toggleAudio);
-noteButton.addEventListener("click", () => playNote());

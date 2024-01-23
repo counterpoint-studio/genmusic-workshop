@@ -39,17 +39,20 @@ async function startLoop() {
 }
 
 function playNote(
-  time,
-  note,
-  duration = 0.15,
-  attack = 0.01,
-  decay = 0.1,
-  sustain = 0.5,
-  release = 2.0,
-  filterAttack = 0.01,
-  filterDecay = 0.0,
-  filterSustain = 1.0,
-  filterRelease = 0.1
+  {
+    time,
+    note,
+    duration = 0.15,
+    attack = 0.01,
+    decay = 0.1,
+    sustain = 0.5,
+    release = 2.0,
+    filterAttack = 0.01,
+    filterDecay = 0.0,
+    filterSustain = 1.0,
+    filterRelease = 0.1,
+  } = {},
+  destination = audioCtx.destination
 ) {
   // Create
   let osc = audioCtx.createOscillator();
@@ -57,7 +60,6 @@ function playNote(
   let noiseGain = audioCtx.createGain();
   let gain = audioCtx.createGain();
   let filter = audioCtx.createBiquadFilter();
-  let saturator = new AudioWorkletNode(audioCtx, "saturator");
 
   // Configure
   osc.type = "square";
@@ -85,8 +87,7 @@ function playNote(
   noiseOsc.connect(noiseGain);
   noiseGain.connect(gain);
   gain.connect(filter);
-  filter.connect(saturator);
-  saturator.connect(audioCtx.destination);
+  filter.connect(destination);
 
   // Start
   osc.start(time);
@@ -95,11 +96,17 @@ function playNote(
   noiseOsc.stop(time + duration + release);
 }
 
-function startMelody() {
+function startMelody(destination) {
   let noteNumber = 0;
   clock
     .callbackAtTime((event) => {
-      playNote(event.deadline, SCALE[noteNumber++ % SCALE.length]);
+      playNote(
+        {
+          time: event.deadline,
+          note: SCALE[noteNumber++ % SCALE.length],
+        },
+        destination
+      );
     }, audioCtx.currentTime)
     .repeat(0.5);
 }
@@ -109,8 +116,10 @@ async function startEverything() {
   await audioCtx.audioWorklet.addModule(saturatorProcessorUrl);
   await startLoop();
   await audioCtx.resume();
+  let saturator = new AudioWorkletNode(audioCtx, "saturator");
+  saturator.connect(audioCtx.destination);
   clock.start();
-  startMelody();
+  startMelody(saturator);
 }
 
 async function toggleAudio() {
