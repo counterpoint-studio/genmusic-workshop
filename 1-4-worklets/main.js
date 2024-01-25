@@ -75,7 +75,7 @@ function playNote({
   noiseOsc.connect(noiseGain);
   noiseGain.connect(gain);
   gain.connect(filter);
-  filter.connect(saturator);
+  filter.connect(audioCtx.destination);
 
   // Start
   osc.start();
