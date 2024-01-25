@@ -1,4 +1,4 @@
-If you have cloned this repository locally, you can start it by running `npm run dev` from a command line.
+If you have cloned this repository locally, you can start it by running `npm install` and then `npm run dev` from a command line.
 
 ## Exercises
 
