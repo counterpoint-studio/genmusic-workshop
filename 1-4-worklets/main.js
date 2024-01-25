@@ -85,9 +85,9 @@ function playNote({
 }
 
 async function startEverything() {
+  await audioCtx.resume();
   await audioCtx.audioWorklet.addModule(noiseOscProcessorUrl);
   await startLoop();
-  await audioCtx.resume();
   noteButton.addEventListener("click", () => playNote());
 }
 

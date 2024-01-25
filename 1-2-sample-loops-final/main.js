@@ -28,8 +28,8 @@ async function startLoop() {
 }
 
 async function startEverything() {
-  await startLoop();
   await audioCtx.resume();
+  await startLoop();
 }
 
 async function toggleAudio() {

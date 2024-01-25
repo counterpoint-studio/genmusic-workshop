@@ -168,10 +168,10 @@ async function startBufferLoop(url, gain, rate, initialDelay, interval) {
 }
 
 async function startEverything() {
+  await audioCtx.resume();
   await audioCtx.audioWorklet.addModule(noiseOscProcessorUrl);
   await audioCtx.audioWorklet.addModule(saturatorProcessorUrl);
   await startLoop();
-  await audioCtx.resume();
   let saturator = new AudioWorkletNode(audioCtx, "saturator");
   saturator.connect(audioCtx.destination);
   clock.start();

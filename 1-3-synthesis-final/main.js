@@ -76,8 +76,8 @@ function playNote({
 }
 
 async function startEverything() {
-  await startLoop();
   await audioCtx.resume();
+  await startLoop();
   noteButton.addEventListener("click", () => playNote());
 }
 
