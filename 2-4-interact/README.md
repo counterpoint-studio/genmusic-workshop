@@ -8,7 +8,7 @@ If you have cloned this repository locally, you can start it by running `npm ins
 
 ## Relevant Resources
 
-https://github.com/sebpiq/WAAClock
-https://developer.mozilla.org/en-US/docs/Web/API/Element/animate
-https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsl
-https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range
+- https://github.com/sebpiq/WAAClock
+- https://developer.mozilla.org/en-US/docs/Web/API/Element/animate
+- https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsl
+- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range

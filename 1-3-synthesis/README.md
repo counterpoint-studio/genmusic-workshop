@@ -9,6 +9,6 @@ If you have cloned this repository locally, you can start it by running `npm ins
 
 ## Relevant Resources
 
-https://developer.mozilla.org/en-US/docs/Web/API/OscillatorNode
-https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode
-https://www.roland.com/uk/blog/guide-to-subtractive-synthesis/
+- https://developer.mozilla.org/en-US/docs/Web/API/OscillatorNode
+- https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode
+- https://www.roland.com/uk/blog/guide-to-subtractive-synthesis/

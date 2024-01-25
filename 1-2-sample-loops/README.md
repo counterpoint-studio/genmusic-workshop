@@ -7,7 +7,7 @@ If you have cloned this repository locally, you can start it by running `npm ins
 
 ## Relevant Resources
 
-https://developer.mozilla.org/en-US/docs/Web/API/AudioContext
-https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer
-https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode
-https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/decodeAudioData
+- https://developer.mozilla.org/en-US/docs/Web/API/AudioContext
+- https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer
+- https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode
+- https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/decodeAudioData

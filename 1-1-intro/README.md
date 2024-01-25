@@ -10,5 +10,5 @@ In `main.js` you have an empty JavaScript file for your code.
 
 ## Relevant Resources
 
-https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio
-https://developer.mozilla.org/en-US/docs/Web/API/HTMLAudioElement
+- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio
+- https://developer.mozilla.org/en-US/docs/Web/API/HTMLAudioElement

@@ -9,6 +9,6 @@ If you have cloned this repository locally, you can start it by running `npm ins
 
 ## Relevant Resources
 
-https://meteohub.mistralportal.it/
-https://github.com/sebpiq/WAAClock
-https://youtu.be/jyPwYnuiTBs?si=noMopWKYt15DD_a7
+- https://meteohub.mistralportal.it/
+- https://github.com/sebpiq/WAAClock
+- https://youtu.be/jyPwYnuiTBs?si=noMopWKYt15DD_a7

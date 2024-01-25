@@ -9,11 +9,11 @@ If you have cloned this repository locally, you can start it by running `npm ins
 
 ## Relevant Resources
 
-https://en.wikipedia.org/wiki/Sampling_(signal_processing)
-https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_AudioWorklet
-https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletNode
-https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletProcessor
-https://en.wikipedia.org/wiki/White_noise
-https://www.izotope.com/en/learn/what-is-audio-saturation.html
-https://en.wikipedia.org/wiki/Hyperbolic_functions
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/tanh
+- https://en.wikipedia.org/wiki/Sampling_(signal_processing)
+- https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_AudioWorklet
+- https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletNode
+- https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletProcessor
+- https://en.wikipedia.org/wiki/White_noise
+- https://www.izotope.com/en/learn/what-is-audio-saturation.html
+- https://en.wikipedia.org/wiki/Hyperbolic_functions
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/tanh

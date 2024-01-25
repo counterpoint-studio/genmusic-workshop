@@ -13,9 +13,9 @@ If you have cloned this repository locally, you can start it by running `npm ins
 
 ## Relevant Resources
 
-https://newt.phys.unsw.edu.au/jw/notes.html
-https://en.wikipedia.org/wiki/Equal_temperament
-https://en.wikipedia.org/wiki/Major_scale
-https://en.wikipedia.org/wiki/Minor_scale
-https://web.dev/articles/audio-scheduling
-https://github.com/sebpiq/WAAClock
+- https://newt.phys.unsw.edu.au/jw/notes.html
+- https://en.wikipedia.org/wiki/Equal_temperament
+- https://en.wikipedia.org/wiki/Major_scale
+- https://en.wikipedia.org/wiki/Minor_scale
+- https://web.dev/articles/audio-scheduling
+- https://github.com/sebpiq/WAAClock

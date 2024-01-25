@@ -8,7 +8,7 @@ If you have cloned this repository locally, you can start it by running `npm ins
 
 ## Relevant Resources
 
-https://teropa.info/blog/2016/07/28/javascript-systems-music#brian-enoambient-1-music-for-airports-2-11978
-https://en.wikipedia.org/wiki/Tape_loop
-https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer
-https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode
+- https://teropa.info/blog/2016/07/28/javascript-systems-music#brian-enoambient-1-music-for-airports-2-11978
+- https://en.wikipedia.org/wiki/Tape_loop
+- https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer
+- https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode

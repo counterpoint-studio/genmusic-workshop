@@ -19,47 +19,47 @@ You can choose to just start from the intro directory, and do all your work in t
 
 ### 1.1. Introduction to sound on the web: Standards and libraries
 
-[Code and exercises](/1-1-intro)
-[Example answers to exercises](/1-1-intro-final)
+- [Code and exercises](/1-1-intro)
+- [Example answers to exercises](/1-1-intro-final)
 
 ### 1.2. Working with pre-recorded sound: Loops and samples and their playback
 
-[Code and exercises](/1-2-sample-loops)
-[Example answers to exercises](/1-2-sample-loops-final)
+- [Code and exercises](/1-2-sample-loops)
+- [Example answers to exercises](/1-2-sample-loops-final)
 
 ### 1.3. Web Audio synthesis and effects
 
-[Code and exercises](/1-3-synthesis)
-[Example answers to exercises](/1-3-synthesis-final)
+- [Code and exercises](/1-3-synthesis)
+- [Example answers to exercises](/1-3-synthesis-final)
 
 ### 1.4. Going low level: Audio signal processing with Audio worklets
 
-[Code and exercises](/1-4-worklets)
-[Example answers to exercises](/1-4-worklets-final)
+- [Code and exercises](/1-4-worklets)
+- [Example answers to exercises](/1-4-worklets-final)
 
 ## 2. Generative music on the web
 
 ### 2.1. Sequencing sound: Pitch, rhythm, repetition
 
-[Code and exercises](/2-1-pitch-rhythm)
-[Example answers to exercises](/2-1-pitch-rhythm-final)
+- [Code and exercises](/2-1-pitch-rhythm)
+- [Example answers to exercises](/2-1-pitch-rhythm-final)
 
 ### 2.2. Loop phasing: Back to the classics
 
-[Code and exercises](/2-2-loop-phasing)
-[Example answers to exercises](/2-2-loop-phasing-final)
+- [Code and exercises](/2-2-loop-phasing)
+- [Example answers to exercises](/2-2-loop-phasing-final)
 
 ### 2.3. Randomness as machine improvisation
 
-[Code and exercises](/2-3-randomness)
-[Example answers to exercises](/2-3-randomness-final)
+- [Code and exercises](/2-3-randomness)
+- [Example answers to exercises](/2-3-randomness-final)
 
 ### 2.4. Interaction and visualisation: Making music visible and responsive
 
-[Code and exercises](/2-4-interact)
-[Example answers to exercises](/2-4-interact-final)
+- [Code and exercises](/2-4-interact)
+- [Example answers to exercises](/2-4-interact-final)
 
 ### 2.5. Data-driven music: Mapping arbitrary data into musical parameters
 
-[Code and exercises](/2-5-data)
-[Example answers to exercises](/2-5-data-final)
+- [Code and exercises](/2-5-data)
+- [Example answers to exercises](/2-5-data-final)
