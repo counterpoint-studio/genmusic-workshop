@@ -3,10 +3,10 @@ import "./style.css";
 // Add your code here
 
 let ambience = document.querySelector("#ambience");
-let playButton = document.querySelector("#play");
-let rewindbutton = document.querySelector("#rewind");
+let audioButton = document.querySelector("#audioButton");
+let rewindbutton = document.querySelector("#rewindButton");
 
-playButton.addEventListener("click", () => {
+audioButton.addEventListener("click", () => {
   ambience.play();
 });
 rewindbutton.addEventListener("click", () => {
