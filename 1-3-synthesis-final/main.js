@@ -34,41 +34,34 @@ function playNote({
   decay = 0.1,
   sustain = 0.5,
   release = 2.0,
-  filterAttack = 0.01,
-  filterDecay = 0.0,
-  filterSustain = 1.0,
-  filterRelease = 0.1,
+  delayTime = 0.5,
+  delayFeedback = 0.8,
 } = {}) {
   let now = audioCtx.currentTime;
 
   // Create
   let osc = audioCtx.createOscillator();
   let gain = audioCtx.createGain();
-  let filter = audioCtx.createBiquadFilter();
+  let delay = audioCtx.createDelay();
+  let delayFeedbackGain = audioCtx.createGain();
 
   // Configure
-  osc.type = "square";
   osc.frequency.value = 261.63;
   gain.gain.setValueAtTime(0, now);
   gain.gain.linearRampToValueAtTime(0.3, now + attack);
   gain.gain.linearRampToValueAtTime(0.3 * sustain, now + attack + decay);
   gain.gain.setValueAtTime(0.3 * sustain, now + duration);
   gain.gain.setTargetAtTime(0, now + duration, release * 0.2);
-  filter.type = "lowpass";
-  filter.Q.value = 2;
-  filter.frequency.setValueAtTime(500, now);
-  filter.frequency.linearRampToValueAtTime(1_000, now + filterAttack);
-  filter.frequency.linearRampToValueAtTime(
-    1_000 * filterSustain,
-    now + filterAttack + filterDecay
-  );
-  filter.frequency.setValueAtTime(1_000 * filterSustain, now + duration);
-  filter.frequency.setTargetAtTime(500, now + duration, filterRelease * 0.2);
+  delay.delayTime.value = delayTime;
+  delayFeedbackGain.gain.value = delayFeedback;
 
   // Connect
   osc.connect(gain);
-  gain.connect(filter);
-  filter.connect(audioCtx.destination);
+  gain.connect(audioCtx.destination);
+  gain.connect(delay);
+  delay.connect(audioCtx.destination);
+  delay.connect(delayFeedbackGain);
+  delayFeedbackGain.connect(delay);
 
   // Start
   osc.start();

@@ -55,12 +55,9 @@ function playNote(
     decay = 0.1,
     sustain = 0.5,
     release = 5.0,
-    filterEnvAmount = 500.0,
-    filterAttack = 0.01,
-    filterDecay = 0.0,
-    filterSustain = 1.0,
-    filterRelease = 0.1,
     type = "triangle",
+    delayTime = 0.2,
+    delayFeedback = 0.7,
   } = {},
   destination = audioCtx.destination
 ) {
@@ -69,7 +66,8 @@ function playNote(
   let noiseOsc = new NoiseOscillatorNode(audioCtx);
   let noiseGain = audioCtx.createGain();
   let gain = audioCtx.createGain();
-  let filter = audioCtx.createBiquadFilter();
+  let delay = audioCtx.createDelay();
+  let delayFeedbackGain = audioCtx.createGain();
 
   // Configure
   osc.type = type;
@@ -81,29 +79,18 @@ function playNote(
   gain.gain.linearRampToValueAtTime(velocity * sustain, time + attack + decay);
   gain.gain.setValueAtTime(velocity * sustain, time + duration);
   gain.gain.setTargetAtTime(0, time + duration, release * 0.2);
-  filter.type = "lowpass";
-  filter.Q.value = 2;
-  filter.frequency.setValueAtTime(500, time);
-  filter.frequency.linearRampToValueAtTime(
-    500 + filterEnvAmount,
-    time + filterAttack
-  );
-  filter.frequency.linearRampToValueAtTime(
-    (500 + filterEnvAmount) * filterSustain,
-    time + filterAttack + filterDecay
-  );
-  filter.frequency.setValueAtTime(
-    (500 + filterEnvAmount) * filterSustain,
-    time + duration
-  );
-  filter.frequency.setTargetAtTime(500, time + duration, filterRelease * 0.2);
+  delay.delayTime.value = delayTime;
+  delayFeedbackGain.gain.value = delayFeedback;
 
   // Connect
   osc.connect(gain);
   noiseOsc.connect(noiseGain);
   noiseGain.connect(gain);
-  gain.connect(filter);
-  filter.connect(destination);
+  gain.connect(destination);
+  gain.connect(delay);
+  delay.connect(destination);
+  delay.connect(delayFeedbackGain);
+  delayFeedbackGain.connect(delay);
 
   // Start
   osc.start(time);
@@ -157,6 +144,8 @@ function startMelody(length, octaveShift, destination) {
       if (note === -1) return;
       let energyOctaveShift = -1 + Math.floor(energy * 3);
       let timingHumanisation = randRange(0.0, 0.02);
+      let delayTimes = [0.4, 0.3, 0.2];
+      let delayTime = delayTimes[Math.floor(Math.random() * delayTimes.length)];
       playNote(
         {
           time: event.deadline + timingHumanisation,
@@ -168,7 +157,8 @@ function startMelody(length, octaveShift, destination) {
           sustain: 1.0,
           release: randRange(0.25, 1.0),
           type: "triangle",
-          filterEnvAmount: 500 + energy * 1500,
+          delayFeedback: 0.5 + energy * 0.4,
+          delayTime,
         },
         destination
       );
@@ -211,7 +201,7 @@ function startNoteLoop(note, initialDelay, interval) {
       playNote({
         time: event.deadline,
         note: note + 12 * energyOctaveShift,
-        filterEnvAmount: 500 + energy * 1500,
+        delayFeedback: 0,
       });
       visualiseEvent({ time: event.deadline });
     }, audioCtx.currentTime + initialDelay)

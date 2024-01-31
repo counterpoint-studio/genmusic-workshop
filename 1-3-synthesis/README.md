@@ -2,13 +2,13 @@ If you have cloned this repository locally, you can start it by running `npm ins
 
 ## Exercises
 
-1. Try different waveforms for the oscillator, and listen to what they sound like.
-2. Create a BiquadFilterNode and route the audio signal through that, either before or after the gain. Set the type of the BiquadFilterNode to “lowpass”
-3. Try different values for the “frequency” and “Q” parameters of the filter to hear how they sculpt the sound. (Hint: Interesting ranges might be 100-20000 for frqeuency and 0-10 for Q.
-4. Create an ADSR automation envelope for the filter’s “frequency” similar to what we did with the gain.
+1. Create a DelayNode, with a delay time of 0.5 seconds and make the synthesizer's audio signal run through it. You should hear a note half a second after each click.
+2. Connect the synthesizer to the destination twice: Once directly, and once through the DelayNode. Now you should hear the note immediately when you click, and then a second time half a second later.
+3. Add a feedback loop to the delay line: Connect the output of the DelayNode to a GainNode, whose gain is set to 0.8. Connect the output of the GainNode back into the DelayNode. You should hear the note repeated many times, getting quieter every time. You have built an echo effect.
 
 ## Relevant Resources
 
 - https://developer.mozilla.org/en-US/docs/Web/API/OscillatorNode
-- https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode
-- https://www.roland.com/uk/blog/guide-to-subtractive-synthesis/
+- https://developer.mozilla.org/en-US/docs/Web/API/DelayNode
+- https://developer.mozilla.org/en-US/docs/Web/API/GainNode
+- https://www.hackaudio.com/digital-signal-processing/echo-effects/

@@ -2,9 +2,10 @@ If you have cloned this repository locally, you can start it by running `npm ins
 
 ## Exercises
 
-1. Make the notes “brighter” when the energy is higher: Higher pitches, and with higher frequencies on the filter.
-2. Make the visual shapes differ based on energy: For example, use brighter colour by playing with the HSL colour saturation and brightness.
-3. Add another kind of visualisation, perhaps using smaller shapes, for the melody generators we added in section 2.
+1. Make the notes higher in pitch when the energy is higher.
+2. Decrease the delay time and increase feedback when the energy is higher.
+3. Make the visual shapes differ based on energy: For example, use brighter colour by playing with the HSL colour saturation and brightness.
+4. Add another kind of visualisation, perhaps using smaller shapes, for the melody generators we added in section 2.
 
 ## Relevant Resources
 

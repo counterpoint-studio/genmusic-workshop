@@ -51,10 +51,8 @@ function playNote(
     decay = 0.1,
     sustain = 0.5,
     release = 5.0,
-    filterAttack = 0.01,
-    filterDecay = 0.0,
-    filterSustain = 1.0,
-    filterRelease = 0.1,
+    delayTime = 0.75,
+    delayFeedback = 0.7,
   } = {},
   destination = audioCtx.destination
 ) {
@@ -63,35 +61,30 @@ function playNote(
   let noiseOsc = new NoiseOscillatorNode(audioCtx);
   let noiseGain = audioCtx.createGain();
   let gain = audioCtx.createGain();
-  let filter = audioCtx.createBiquadFilter();
+  let delay = audioCtx.createDelay();
+  let delayFeedbackGain = audioCtx.createGain();
 
   // Configure
-  osc.type = "triangle";
   osc.frequency.value = mtof(note);
-  noiseGain.gain.value = 0.2;
+  noiseGain.gain.value = 0.1;
   gain.gain.value = 0;
   gain.gain.setValueAtTime(0, time);
   gain.gain.linearRampToValueAtTime(0.15, time + attack);
   gain.gain.linearRampToValueAtTime(0.15 * sustain, time + attack + decay);
   gain.gain.setValueAtTime(0.15 * sustain, time + duration);
   gain.gain.setTargetAtTime(0, time + duration, release * 0.2);
-  filter.type = "lowpass";
-  filter.Q.value = 2;
-  filter.frequency.setValueAtTime(500, time);
-  filter.frequency.linearRampToValueAtTime(1_000, time + filterAttack);
-  filter.frequency.linearRampToValueAtTime(
-    1_000 * filterSustain,
-    time + filterAttack + filterDecay
-  );
-  filter.frequency.setValueAtTime(1_000 * filterSustain, time + duration);
-  filter.frequency.setTargetAtTime(500, time + duration, filterRelease * 0.2);
+  delay.delayTime.value = delayTime;
+  delayFeedbackGain.gain.value = delayFeedback;
 
   // Connect
   osc.connect(gain);
   noiseOsc.connect(noiseGain);
   noiseGain.connect(gain);
-  gain.connect(filter);
-  filter.connect(destination);
+  gain.connect(destination);
+  gain.connect(delay);
+  delay.connect(destination);
+  delay.connect(delayFeedbackGain);
+  delayFeedbackGain.connect(delay);
 
   // Start
   osc.start(time);
