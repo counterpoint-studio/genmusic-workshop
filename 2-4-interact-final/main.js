@@ -220,14 +220,17 @@ async function startBufferLoop(url, gain, rate, initialDelay, interval) {
   clockEvents.push(event);
 }
 
+function lerp(value, min, max) {
+  return min + value * (max - min);
+}
+
 let lastStretch = 1;
 function updateEnergy(value) {
   energy = value;
 
   let minStretch = 0.5;
   let maxStretch = 1.5;
-  let reverseEnergy = 1 - energy;
-  let stretch = minStretch + reverseEnergy * (maxStretch - minStretch);
+  let stretch = lerp(1 - energy, minStretch, maxStretch);
   let stretchChange = stretch / lastStretch;
   lastStretch = stretch;
 
