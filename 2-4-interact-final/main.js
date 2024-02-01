@@ -202,7 +202,6 @@ function startNoteLoop(note, initialDelay, interval) {
       playNote({
         time: event.deadline,
         note: note + 12 * energyOctaveShift,
-        filterEnvAmount: 500 + energy * 1500,
       });
       visualiseEvent({ time: event.deadline });
     }, audioCtx.currentTime + initialDelay)

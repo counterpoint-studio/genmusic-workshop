@@ -3,9 +3,8 @@ If you have cloned this repository locally, you can start it by running `npm ins
 ## Exercises
 
 1. Play a second series of notes, with a different pitch and/or sound, corresponding to windy days
-2. Adjust the volume (gain) of the notes so that the more sunny/windy it was, the louder they are
-3. Play some longer slower notes or samples to announce the change of seasons (beginning of spring, summer, autumn, winter)
-4. Change the visualisation so that rainy and windy days show as different colours or shapes
+2. Play some longer slower notes or samples to announce the change of seasons (beginning of spring, summer, autumn, winter)
+3. Change the visualisation so that rainy and windy days show as different colours or shapes
 
 ## Relevant Resources
 
